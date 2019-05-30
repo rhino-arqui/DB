@@ -15,7 +15,7 @@ CREATE TABLE property(
     is_available number(1,0) DEFAULT 1,
     number_rooms integer NOT NULL,
     rent number(10,2) NOT NULL,
-    id integer,
+    id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
     client_id varchar2(255),
     CONSTRAINT property_pk PRIMARY KEY (id),
     CONSTRAINT client_fk FOREIGN KEY (client_id) REFERENCES client(id)
@@ -32,9 +32,12 @@ CREATE TABLE visiting_list(
 CREATE TABLE rent_record(
     id integer,
     lease_path varchar2(255),
-    rental_date date,
+    rental_date date DEFAULT SYSDATE,
     property_id integer NOT NULL,
+    client_id varchar2(255) NOT NULL,
+    confirmed_date date,
     CONSTRAINT property_r_fk FOREIGN KEY (property_id) REFERENCES property(id),
+    CONSTRAINT client_r_fk FOREIGN KEY (client_id) REFERENCES client(id),
     CONSTRAINT rent_record_pk PRIMARY KEY (id)
 );
 
