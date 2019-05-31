@@ -30,7 +30,7 @@ CREATE TABLE visiting_list(
 );
 
 CREATE TABLE rent_record(
-    id integer,
+    id NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
     lease_path varchar2(255),
     rental_date date DEFAULT SYSDATE,
     property_id integer NOT NULL,
